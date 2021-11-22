@@ -2,8 +2,8 @@ package classes;
 
 import interfaces.IReader;
 import interfaces.IWriter;
-import org.json.simple.parser.JSONParser;
 
+import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -11,9 +11,9 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.List;
+import java.nio.charset.StandardCharsets;
 
 public class Json implements IReader, IWriter {
     @Override
