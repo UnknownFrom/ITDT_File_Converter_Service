@@ -15,21 +15,20 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
 public class Xml implements IReader, IWriter {
     @Override
-    public void read(List<University> universityList, String pathDocument) throws ParserConfigurationException, IOException, SAXException, ParseException {
-        ToReadUniversitiesFromXML(universityList, pathDocument);
+    public void read(List<University> universities, String path) throws ParserConfigurationException, IOException, SAXException {
+        readFromXml(universities, path);
     }
 
     @Override
-    public void write(List<University> universityList, String pathDocument) throws ParserConfigurationException, TransformerException {
-        ToWriteUniversitiesToXML(universityList, pathDocument);
+    public void write(List<University> universities, String path) throws ParserConfigurationException, TransformerException {
+        writeToXml(universities, path);
     }
 
-    private void ToWriteUniversitiesToXML(List<University> universityList, String pathDocument) throws ParserConfigurationException, TransformerException {
+    private void writeToXml(List<University> universities, String path) throws ParserConfigurationException, TransformerException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document document = dBuilder.newDocument();
@@ -38,36 +37,36 @@ public class Xml implements IReader, IWriter {
         Element rootElement = document.createElement("universities");
         document.appendChild(rootElement);
 
-        for (int i = 0; i < universityList.size(); i++) {
+        for (University university : universities) {
             /* создание отдельных университетов */
             Element universityElement = document.createElement("university");
             rootElement.appendChild(universityElement);
 
             /* создание атрибутов */
             Attr nameUniversity = document.createAttribute("name");
-            nameUniversity.setValue(universityList.get(i).getName());
+            nameUniversity.setValue(university.getName());
             universityElement.setAttributeNode(nameUniversity);
 
-            List<Faculty> facultiesList = universityList.get(i).getFaculties();
-            for (int k = 0; k < facultiesList.size(); k++) {
+            List<Faculty> faculties = university.getFaculties();
+            for (Faculty faculty : faculties) {
                 /* создание отдельных факультетов */
                 Element facultyElement = document.createElement("faculty");
                 universityElement.appendChild(facultyElement);
 
                 /* создание атрибутов */
                 Attr nameFaculty = document.createAttribute("name");
-                nameFaculty.setValue(facultiesList.get(k).getName());
+                nameFaculty.setValue(faculty.getName());
                 facultyElement.setAttributeNode(nameFaculty);
 
-                List<Student> studentsList = facultiesList.get(k).getStudents();
-                for (int m = 0; m < studentsList.size(); m++) {
-                    /* создание отдельных факультетов */
+                List<Student> students = faculty.getStudents();
+                for (Student student : students) {
+                    /* создание отдельных студентов */
                     Element studentElement = document.createElement("student");
                     facultyElement.appendChild(studentElement);
 
                     /* создание атрибутов */
                     Attr nameStudent = document.createAttribute("name");
-                    nameStudent.setValue(studentsList.get(m).getName());
+                    nameStudent.setValue(student.getName());
                     studentElement.setAttributeNode(nameStudent);
                 }
             }
@@ -76,49 +75,45 @@ public class Xml implements IReader, IWriter {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(document);
-        StreamResult result = new StreamResult(new File(pathDocument));
+        StreamResult result = new StreamResult(new File(path));
         transformer.transform(source, result);
     }
 
-    private void ToReadUniversitiesFromXML(List<University> universityList, String path) throws ParserConfigurationException, IOException, SAXException {
+    private void readFromXml(List<University> universities, String path) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(new File(path));
 
-        /*получение списка всех элементов university*/
+        /* получение списка всех элементов university */
         NodeList universitiesElements = document.getDocumentElement().getElementsByTagName("university");
-
-        /*перебор всех элементов university*/
+        /* перебор всех элементов university */
         for (int i = 0; i < universitiesElements.getLength(); i++) {
             Node university = universitiesElements.item(i);
-            NamedNodeMap attributesUni = university.getAttributes();
-            String nameUni = attributesUni.getNamedItem("name").getNodeValue();
-            universityList.add(new University(nameUni));
+            NamedNodeMap universityAttributes = university.getAttributes();
+            String universityName = universityAttributes.getNamedItem("name").getNodeValue();
+            universities.add(new University(universityName));
 
+            int countStudents = -1;     /* кол-во студентов в университете */
+            int countFaculties = -1;    /* кол-во факультетов в университете */
             NodeList facultiesElements = university.getChildNodes();
-            int countStud = -1;
-            int countFac = -1;
             for (int k = 0; k < facultiesElements.getLength(); k++) {
                 Node faculty = facultiesElements.item(k);
-
                 if (faculty.getNodeType() != Node.TEXT_NODE) {
-
-                    NamedNodeMap attributesFac = faculty.getAttributes();
-                    String nameFac = attributesFac.getNamedItem("name").getNodeValue();
-                    universityList.get(i).addFaculty(new Faculty(nameFac));
-                    countFac++;
+                    NamedNodeMap facultyAttributes = faculty.getAttributes();
+                    String facultyName = facultyAttributes.getNamedItem("name").getNodeValue();
+                    universities.get(i).addFaculty(new Faculty(facultyName));
+                    countFaculties++;
 
                     NodeList studentsElements = faculty.getChildNodes();
-
                     for (int m = 0; m < studentsElements.getLength(); m++) {
                         Node student = studentsElements.item(m);
                         if (student.getNodeType() != Node.TEXT_NODE) {
-                            NamedNodeMap attributesStud = student.getAttributes();
-                            String nameStud = attributesStud.getNamedItem("name").getNodeValue();
-                            universityList.get(i).getFaculty(countFac).addStudent(new Student(nameStud));
-                            universityList.get(i).addStudent(new Student(nameStud));
-                            countStud++;
-                            universityList.get(i).getStudent(countStud).addFaculties(nameFac);
+                            NamedNodeMap studentAttributes = student.getAttributes();
+                            String nameStud = studentAttributes.getNamedItem("name").getNodeValue();
+                            universities.get(i).getFaculty(countFaculties).addStudent(new Student(nameStud));
+                            universities.get(i).addStudent(new Student(nameStud));
+                            countStudents++;
+                            universities.get(i).getStudent(countStudents).addFaculties(facultyName);
                         }
                     }
                 }

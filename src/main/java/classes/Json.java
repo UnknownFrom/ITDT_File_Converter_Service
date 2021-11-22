@@ -8,93 +8,91 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.List;
 
 public class Json implements IReader, IWriter {
     @Override
-    public void read(List<University> universities, String pathDocument) throws IOException, ParseException {
-        readFromJson(universities, pathDocument);
+    public void read(List<University> universities, String path) throws IOException, ParseException {
+        readFromJson(universities, path);
     }
 
     @Override
-    public void write(List<University> universities, String pathDocument) {
-        writeToJson(universities, pathDocument);
+    public void write(List<University> universities, String path) {
+        writeToJson(universities, path);
     }
 
     private static void readFromJson(List<University> universities, String path) throws IOException, ParseException {
-        FileReader reader = new FileReader(new File(path));
+        FileReader reader = new FileReader(path, StandardCharsets.UTF_8);
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
-        JSONArray faculties = (JSONArray) jsonObject.get("faculties");
-        Iterator i = faculties.iterator();
-        int indFac = -1;
-        while (i.hasNext()) {
-            JSONObject faculty = (JSONObject) i.next();
-            String nameUniversity = (String) faculty.get("university");
-            String nameFaculty = (String) faculty.get("name");
+        JSONArray facultiesJson = (JSONArray) jsonObject.get("faculties");
+        Iterator iterator = facultiesJson.iterator();
+        int indexFaculty = -1;
+        while (iterator.hasNext()) {
+            JSONObject facultyJson = (JSONObject) iterator.next();
+            String nameUniversity = (String) facultyJson.get("university");
+            String nameFaculty = (String) facultyJson.get("name");
 
             /* получение индекса университета в списке */
-            int indUn = -1;
-            for (int ind = 0; ind < universities.size(); ind++) {
-                if (universities.get(ind).getName().equals(nameUniversity)) {
-                    indUn = ind;
+            int indexUniversity = -1;
+            for (int index = 0; index < universities.size(); index++) {
+                if (universities.get(index).getName().equals(nameUniversity)) {
+                    indexUniversity = index;
                 }
             }
-            if (indUn == -1) /* если университета нет, добавляем */ {
+            /* если университета нет, добавляем */
+            if (indexUniversity == -1) {
                 universities.add(new University(nameUniversity));
-                indUn = universities.size() - 1;
+                indexUniversity = universities.size() - 1;
             }
-            universities.get(indUn).addFaculty(new Faculty(nameFaculty));
-            indFac++;
+            /* добавляем факультет к университету */
+            universities.get(indexUniversity).addFaculty(new Faculty(nameFaculty));
+            indexFaculty++;
 
-            JSONArray students = (JSONArray) faculty.get("students");
-            Iterator k = students.iterator();
-            while (k.hasNext()) {
-                JSONObject student = (JSONObject) k.next();
-                String nameStudent = (String) student.get("name");
+            JSONArray studentsJson = (JSONArray) facultyJson.get("students");
+            for (Object student : studentsJson) {
+                JSONObject studentJson = (JSONObject) student;
+                String nameStudent = (String) studentJson.get("name");
                 /* общий список студентов в университете */
-                universities.get(indUn).addStudent(new Student(nameStudent));
+                universities.get(indexUniversity).addStudent(new Student(nameStudent));
                 /* добавляем студента на факультет */
-                universities.get(indUn).getFaculty(indFac).addStudent(new Student(nameStudent));
+                universities.get(indexUniversity).getFaculty(indexFaculty).addStudent(new Student(nameStudent));
             }
         }
     }
 
-    private void writeToJson(List<University> universities, String pathDocument) {
+    private void writeToJson(List<University> universities, String path) {
         JSONObject result = new JSONObject();/* основной объект для записи результата */
-        JSONArray faculties = new JSONArray();
-        for (int i = 0; i < universities.size(); i++) {
+        JSONArray facultiesJson = new JSONArray();
+        for (University university : universities) {
             /* список факультетов университета */
-            List<Faculty> fac = universities.get(i).getFaculties();
-
-            for (int k = 0; k < fac.size(); k++) {
-                List<Student> studentsList = fac.get(k).getStudents();
-                JSONArray students = new JSONArray();
-                for (int m = 0; m < studentsList.size(); m++) {
-                    JSONObject student = new JSONObject();
-                    student.put("name", studentsList.get(m).getName());
-                    students.add(student);
+            List<Faculty> faculties = university.getFaculties();
+            for (Faculty faculty : faculties) {
+                List<Student> students = faculty.getStudents();
+                JSONArray studentsJson = new JSONArray();
+                for (Student student : students) {
+                    JSONObject studentJson = new JSONObject();
+                    studentJson.put("name", student.getName());
+                    studentsJson.add(studentJson);
                 }
-                /* объединение студентов под надписью students */
-                JSONObject studentTitle = new JSONObject();
-                studentTitle.put("students", students);
-                studentTitle.put("name", fac.get(k).getName());
-                studentTitle.put("university", universities.get(i).getName());
-
+                /* создание одного объекта "факультет" */
+                JSONObject facultyJson = new JSONObject();
+                facultyJson.put("students", studentsJson);
+                facultyJson.put("name", faculty.getName());
+                facultyJson.put("university", university.getName());
                 /* занесение факультета в массив */
-                faculties.add(studentTitle);
-
+                facultiesJson.add(facultyJson);
             }
-            result.put("faculties", faculties);
-
+            result.put("faculties", facultiesJson);
         }
         try {
-            FileWriter file = new FileWriter(pathDocument);
+            /* запись в файл */
+            FileWriter file = new FileWriter(path);
             file.write(result.toJSONString());
             file.flush();
             file.close();

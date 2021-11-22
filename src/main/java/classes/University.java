@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class University {
-    private List<Faculty> faculties;
     private String name;
+    private List<Faculty> faculties;
     private List<Student> students;
 
     public University(String name) {
-        faculties = new ArrayList<>();
         this.name = name;
+        faculties = new ArrayList<>();
         students = new ArrayList<>();
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Faculty getFaculty(int index) {
@@ -26,19 +30,15 @@ public class University {
         return faculties;
     }
 
-    public String getName() {
-        return name;
+    public void addFaculty(Faculty faculty) {
+        if (!faculties.contains(faculty)) {
+            faculties.add(faculty);
+        }
     }
 
     public void addStudent(Student student) {
         if (!students.contains(student)) {
             students.add(student);
-        }
-    }
-
-    public void addFaculty(Faculty faculty) {
-        if (!faculties.contains(faculty)) {
-            faculties.add(faculty);
         }
     }
 }
