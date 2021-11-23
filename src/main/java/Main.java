@@ -10,14 +10,13 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        /* "C:\Program Files\Java\jdk-16.0.2\bin\java.exe" -jar FileConverterService.iml.jar data.xml data.json */
         List<University> universities = new ArrayList<>();
         ManageExtension extension = new ManageExtension();
         try {
-            File read = new File("src/main/java/data/data.json");
             //File read = new File(args[0]);
-            File write = new File("src/main/java/data/dataResult.xml");
             //File write = new File(args[1]);
+            File read = new File("src/main/java/data/data.json");
+            File write = new File("src/main/java/data/dataResult.xml");
             switch (FilenameUtils.getExtension(read.getAbsolutePath())) {
                 case "json" -> extension.setReader(new Json());
                 case "xml" -> extension.setReader(new Xml());

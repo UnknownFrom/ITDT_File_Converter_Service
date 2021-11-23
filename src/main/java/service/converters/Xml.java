@@ -96,7 +96,6 @@ public class Xml implements IReader, IWriter {
             String universityName = universityAttributes.getNamedItem("name").getNodeValue();
             universities.add(new University(universityName));
 
-            int countStudents = -1;     /* кол-во студентов в университете */
             int countFaculties = -1;    /* кол-во факультетов в университете */
             NodeList facultiesElements = university.getChildNodes();
             for (int k = 0; k < facultiesElements.getLength(); k++) {
@@ -115,8 +114,6 @@ public class Xml implements IReader, IWriter {
                             String nameStud = studentAttributes.getNamedItem("name").getNodeValue();
                             universities.get(i).getFaculty(countFaculties).addStudent(new Student(nameStud));
                             universities.get(i).addStudent(new Student(nameStud));
-                            countStudents++;
-                            universities.get(i).getStudent(countStudents).addFaculties(facultyName);
                         }
                     }
                 }
