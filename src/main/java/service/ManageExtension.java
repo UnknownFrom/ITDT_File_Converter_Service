@@ -1,7 +1,4 @@
-package classes;
-
-import interfaces.IReader;
-import interfaces.IWriter;
+package service;
 
 public class ManageExtension {
     private IReader reader;

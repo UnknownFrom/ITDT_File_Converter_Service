@@ -1,12 +1,14 @@
-package classes;
-
-import interfaces.IReader;
-import interfaces.IWriter;
+package service.converters;
 
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
+import service.IReader;
+import service.IWriter;
+import service.structure.Faculty;
+import service.structure.Student;
+import service.structure.University;
 
 import java.io.FileReader;
 import java.io.FileWriter;

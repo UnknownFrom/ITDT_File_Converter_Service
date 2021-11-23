@@ -1,11 +1,11 @@
-package classes;
+package service.structure;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Student {
-    private String name;
-    private List<String> faculties; /* на какие факультеты поступил */
+    private final String name;
+    private final List<String> faculties; /* на какие факультеты поступил */
 
     public Student(String name) {
         this.name = name;

@@ -1,15 +1,15 @@
-package classes;
+package service.structure;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Faculty {
-    private List<Student> students;
-    private String name;
+    private final String name;
+    private final List<Student> students;
 
     public Faculty(String name) {
-        students = new ArrayList<>();
         this.name = name;
+        students = new ArrayList<>();
     }
 
     public String getName() {

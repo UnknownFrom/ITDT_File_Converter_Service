@@ -1,12 +1,12 @@
-package classes;
+package service.structure;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class University {
-    private String name;
-    private List<Faculty> faculties;
-    private List<Student> students;
+    private final String name;
+    private final List<Faculty> faculties;
+    private final List<Student> students;
 
     public University(String name) {
         this.name = name;
@@ -28,6 +28,9 @@ public class University {
 
     public List<Faculty> getFaculties() {
         return faculties;
+    }
+    public List<Student> getStudents() {
+        return students;
     }
 
     public void addFaculty(Faculty faculty) {

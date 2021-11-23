@@ -1,9 +1,12 @@
-package classes;
+package service.converters;
 
-import interfaces.IReader;
-import interfaces.IWriter;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
+import service.IReader;
+import service.IWriter;
+import service.structure.Faculty;
+import service.structure.Student;
+import service.structure.University;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
