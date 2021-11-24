@@ -13,10 +13,14 @@ public class Main {
         List<University> universities = new ArrayList<>();
         ManageExtension extension = new ManageExtension();
         try {
-            //File read = new File(args[0]);
-            //File write = new File(args[1]);
-            File read = new File("src/main/java/data/data.json");
-            File write = new File("src/main/java/data/dataResult.xml");
+            File read, write;
+            if (args.length > 0) {
+                read = new File(args[0]);
+                write = new File(args[1]);
+            } else {
+                read = new File("src/main/java/data/data.json");
+                write = new File("src/main/java/data/dataResult.json");
+            }
             switch (FilenameUtils.getExtension(read.getAbsolutePath())) {
                 case "json" -> extension.setReader(new Json());
                 case "xml" -> extension.setReader(new Xml());
