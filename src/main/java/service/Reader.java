@@ -8,6 +8,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
-public interface IReader {
+public interface Reader {
     void read(List<University> universities, String path) throws ParserConfigurationException, IOException, SAXException, ParseException, org.json.simple.parser.ParseException;
 }
