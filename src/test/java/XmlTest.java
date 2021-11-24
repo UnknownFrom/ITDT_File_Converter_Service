@@ -1,4 +1,3 @@
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -13,6 +12,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public class XmlTest {
     List<University> universities;
 
@@ -24,17 +25,17 @@ public class XmlTest {
     }
 
     @Test
-    public void countOfUniversities(){
-        Assert.assertEquals(universities.size(), 1);
+    public void countOfUniversities() {
+        assertEquals(universities.size(), 1);
     }
 
     @Test
-    public void countOfFaculties(){
-        Assert.assertEquals(universities.get(0).getFaculties().size(), 5);
+    public void countOfFaculties() {
+        assertEquals(universities.get(0).getFaculties().size(), 5);
     }
 
     @Test
-    public void countOfStudents(){
-        Assert.assertEquals(universities.get(0).getStudents().size(), 5);
+    public void countOfStudents() {
+        assertEquals(universities.get(0).getStudents().size(), 5);
     }
 }
