@@ -1,8 +1,6 @@
-import service.converters.Json;
-import service.ManageExtension;
+import service.ParserFactory;
+import service.Parser;
 import service.structure.University;
-import service.converters.Xml;
-import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,7 +9,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         List<University> universities = new ArrayList<>();
-        ManageExtension extension = new ManageExtension();
+        ParserFactory parserFactory = new ParserFactory();
         try {
             File read, write;
             if (args.length > 0) {
@@ -21,19 +19,9 @@ public class Main {
                 read = new File("src/main/java/data/data.json");
                 write = new File("src/main/java/data/dataResult.json");
             }
-            switch (FilenameUtils.getExtension(read.getAbsolutePath())) {
-                case "json" -> extension.setReader(new Json());
-                case "xml" -> extension.setReader(new Xml());
-                default -> throw new Exception("Ошибка в формате файла");
-            }
-            extension.getReader().read(universities, read.getAbsolutePath()); /* считываем данные */
-
-            switch (FilenameUtils.getExtension(write.getAbsolutePath())) {
-                case "json" -> extension.setWriter(new Json());
-                case "xml" -> extension.setWriter(new Xml());
-                default -> throw new Exception("Ошибка в формате файла");
-            }
-            extension.getWriter().write(universities, write.getAbsolutePath()); /* записываем данные */
+            Parser parser = parserFactory.createParser(read.getAbsolutePath(), write.getAbsolutePath());
+            parser.getReader().read(universities, read.getAbsolutePath()); /* считываем данные */
+            parser.getWriter().write(universities, write.getAbsolutePath()); /* записываем данные */
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
