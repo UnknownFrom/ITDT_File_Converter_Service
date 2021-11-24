@@ -1,7 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
-import service.IReader;
+import service.Reader;
 import service.structure.University;
 import service.converters.Xml;
 
@@ -20,7 +20,7 @@ public class XmlTest {
     @Before
     public void setUp() throws ParserConfigurationException, IOException, ParseException, org.json.simple.parser.ParseException, SAXException {
         universities = new ArrayList<>();
-        IReader xml = new Xml();
+        Reader xml = new Xml();
         xml.read(universities, new File("src/main/java/data/data.xml").getAbsolutePath());
     }
 

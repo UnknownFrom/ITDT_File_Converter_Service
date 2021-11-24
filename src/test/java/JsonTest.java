@@ -1,4 +1,3 @@
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -21,7 +20,7 @@ public class JsonTest {
     @Before
     public void setUp() throws ParserConfigurationException, IOException, ParseException, org.json.simple.parser.ParseException, SAXException {
         universities = new ArrayList<>();
-        IReader json = new Json();
+        Reader json = new Json();
         json.read(universities, new File("src/main/java/data/data.json").getAbsolutePath());
     }
 
