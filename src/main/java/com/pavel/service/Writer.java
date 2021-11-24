@@ -1,6 +1,6 @@
-package service;
+package com.pavel.service;
 
-import service.structure.University;
+import com.pavel.service.structure.University;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;

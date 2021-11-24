@@ -1,6 +1,8 @@
-import service.ParserFactory;
-import service.Parser;
-import service.structure.University;
+package com.pavel;
+
+import com.pavel.service.ParserFactory;
+import com.pavel.service.Parser;
+import com.pavel.service.structure.University;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,8 +18,8 @@ public class Main {
                 read = new File(args[0]);
                 write = new File(args[1]);
             } else {
-                read = new File("src/main/java/data/data.json");
-                write = new File("src/main/java/data/dataResult.json");
+                read = new File("src/main/java/com/pavel/data/data.json");
+                write = new File("src/main/java/com/pavel/data/dataResult.json");
             }
             Parser parser = parserFactory.createParser(read.getAbsolutePath(), write.getAbsolutePath());
             parser.getReader().read(universities, read.getAbsolutePath()); /* считываем данные */

@@ -1,14 +1,14 @@
-package service.converters;
+package com.pavel.service.converters;
 
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
-import service.Reader;
-import service.Writer;
-import service.structure.Faculty;
-import service.structure.Student;
-import service.structure.University;
+import com.pavel.service.Reader;
+import com.pavel.service.Writer;
+import com.pavel.service.structure.Faculty;
+import com.pavel.service.structure.Student;
+import com.pavel.service.structure.University;
 
 import java.io.FileReader;
 import java.io.FileWriter;

@@ -1,4 +1,4 @@
-package service;
+package com.pavel.service;
 
 public final class Parser {
     private Writer writer;

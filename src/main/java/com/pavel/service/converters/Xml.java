@@ -1,12 +1,12 @@
-package service.converters;
+package com.pavel.service.converters;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
-import service.Reader;
-import service.Writer;
-import service.structure.Faculty;
-import service.structure.Student;
-import service.structure.University;
+import com.pavel.service.Reader;
+import com.pavel.service.Writer;
+import com.pavel.service.structure.Faculty;
+import com.pavel.service.structure.Student;
+import com.pavel.service.structure.University;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
