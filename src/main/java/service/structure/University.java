@@ -3,7 +3,7 @@ package service.structure;
 import java.util.ArrayList;
 import java.util.List;
 
-public class University {
+public final class University {
     private final String name;
     private final List<Faculty> faculties;
     private final List<Student> students;

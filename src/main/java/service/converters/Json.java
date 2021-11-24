@@ -4,8 +4,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
-import service.IReader;
-import service.IWriter;
+import service.Reader;
+import service.Writer;
 import service.structure.Faculty;
 import service.structure.Student;
 import service.structure.University;
@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.*;
 import java.nio.charset.StandardCharsets;
 
-public class Json implements IReader, IWriter {
+public final class Json implements Reader, Writer {
     @Override
     public void read(List<University> universities, String path) throws ParseException {
         readFromJson(universities, path);
@@ -27,7 +27,7 @@ public class Json implements IReader, IWriter {
         writeToJson(universities, path);
     }
 
-    private static void readFromJson(List<University> universities, String path) throws ParseException {
+    void readFromJson(List<University> universities, String path) throws ParseException {
         try (FileReader reader = new FileReader(path, StandardCharsets.UTF_8)) {
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
@@ -70,7 +70,7 @@ public class Json implements IReader, IWriter {
     }
 
     @SuppressWarnings("unchecked")
-    private void writeToJson(List<University> universities, String path) {
+    void writeToJson(List<University> universities, String path) {
         JSONObject result = new JSONObject();/* основной объект для записи результата */
         JSONArray facultiesJson = new JSONArray();
         for (University university : universities) {

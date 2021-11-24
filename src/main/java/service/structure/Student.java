@@ -1,6 +1,6 @@
 package service.structure;
 
-public class Student {
+public final class Student {
     private final String name;
 
     public Student(String name) {

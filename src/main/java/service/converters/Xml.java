@@ -2,8 +2,8 @@ package service.converters;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
-import service.IReader;
-import service.IWriter;
+import service.Reader;
+import service.Writer;
 import service.structure.Faculty;
 import service.structure.Student;
 import service.structure.University;
@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class Xml implements IReader, IWriter {
+public final class Xml implements Reader, Writer {
     @Override
     public void read(List<University> universities, String path) throws ParserConfigurationException, IOException, SAXException {
         readFromXml(universities, path);
@@ -31,7 +31,7 @@ public class Xml implements IReader, IWriter {
         writeToXml(universities, path);
     }
 
-    private void writeToXml(List<University> universities, String path) throws ParserConfigurationException, TransformerException {
+    void writeToXml(List<University> universities, String path) throws ParserConfigurationException, TransformerException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document document = dBuilder.newDocument();
@@ -82,7 +82,7 @@ public class Xml implements IReader, IWriter {
         transformer.transform(source, result);
     }
 
-    private void readFromXml(List<University> universities, String path) throws ParserConfigurationException, IOException, SAXException {
+    void readFromXml(List<University> universities, String path) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(new File(path));
