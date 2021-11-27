@@ -1,8 +1,8 @@
-package com.pavel.service;
+package ru.pavel.service;
 
 import org.apache.commons.io.FilenameUtils;
-import com.pavel.service.converters.Json;
-import com.pavel.service.converters.Xml;
+import ru.pavel.service.converters.Json;
+import ru.pavel.service.converters.Xml;
 
 public final class ParserFactory {
     public Parser createParser(String inputFile, String outputFile) {

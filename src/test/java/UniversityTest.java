@@ -1,7 +1,7 @@
 import org.junit.Test;
-import com.pavel.service.structure.Faculty;
-import com.pavel.service.structure.Student;
-import com.pavel.service.structure.University;
+import ru.pavel.service.structure.Faculty;
+import ru.pavel.service.structure.Student;
+import ru.pavel.service.structure.University;
 
 import static org.junit.Assert.assertEquals;
 

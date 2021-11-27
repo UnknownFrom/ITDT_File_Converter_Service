@@ -12,7 +12,7 @@
 ### Maven
 1) Должен быть установлен Maven, чтобы была возможность пользоваться командами (для проверки введите в командной строке mvn -version). Если не установлен, то можно скачать с https://maven.apache.org/download.cgi и указать в переменных окружения (описание установки https://javarush.ru/groups/posts/2523-chastjh-4osnovih-maven)
 2) Находясь в папке проекта использовать "mvn install"
-3) Находясь в папке проекта использовать "java -jar .\target\ITDT_File_Converter_Service-1.0-SNAPSHOT.jar
+3) Находясь в папке проекта использовать "java -jar .\target\ITDT_File_Converter_Service-1.0-SNAPSHOT.jar <путь к файлу для считывания> <путь к файлу для записи>
 ### IntelliJ Idea
 1) Зайти по пути src/main/java/com/pavel
 2) Запустить Main.java

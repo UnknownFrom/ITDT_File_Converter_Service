@@ -1,4 +1,4 @@
-package com.pavel.service.structure;
+package ru.pavel.service.structure;
 
 import java.util.ArrayList;
 import java.util.List;

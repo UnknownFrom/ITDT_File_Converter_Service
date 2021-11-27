@@ -1,7 +1,7 @@
-package com.pavel.service;
+package ru.pavel.service;
 
 import org.xml.sax.SAXException;
-import com.pavel.service.structure.University;
+import ru.pavel.service.structure.University;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;

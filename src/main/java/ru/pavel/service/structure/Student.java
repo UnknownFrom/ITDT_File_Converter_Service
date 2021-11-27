@@ -1,4 +1,4 @@
-package com.pavel.service.structure;
+package ru.pavel.service.structure;
 
 public final class Student {
     private final String name;
