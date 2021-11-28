@@ -18,13 +18,15 @@ public class UniversityTest {
         University university = new University("ВятГУ");
         university.addFaculty(new Faculty("Информационный"));
         assertEquals(university.getFaculties().size(), 1);
-        assertEquals(university.getFaculty(0).getName(), "Информационный");
+        assertEquals(university.getFaculty(0)
+                .getName(), "Информационный");
     }
 
     @Test
     public void addStudent() {
         University university = new University("ВятГУ");
         university.addStudent(new Student("Павел"));
-        assertEquals(university.getStudent(0).getName(), "Павел");
+        assertEquals(university.getStudent(0)
+                .getName(), "Павел");
     }
 }

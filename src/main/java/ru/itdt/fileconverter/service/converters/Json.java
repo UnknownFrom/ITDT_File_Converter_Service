@@ -37,11 +37,11 @@ public final class Json implements Reader, Writer {
                 JSONObject facultyJson = (JSONObject) faculty;
                 String nameUniversity = (String) facultyJson.get("university");
                 String nameFaculty = (String) facultyJson.get("name");
-
                 /* получение индекса университета в списке */
                 int indexUniversity = -1;
                 for (int index = 0; index < universities.size(); index++) {
-                    if (universities.get(index).getName().equals(nameUniversity)) {
+                    if (universities.get(index)
+                            .getName().equals(nameUniversity)) {
                         indexUniversity = index;
                     }
                 }
@@ -53,7 +53,6 @@ public final class Json implements Reader, Writer {
                 /* добавляем факультет к университету */
                 universities.get(indexUniversity).addFaculty(new Faculty(nameFaculty));
                 indexFaculty++;
-
                 JSONArray studentsJson = (JSONArray) facultyJson.get("students");
                 for (Object student : studentsJson) {
                     JSONObject studentJson = (JSONObject) student;
@@ -61,7 +60,8 @@ public final class Json implements Reader, Writer {
                     /* общий список студентов в университете */
                     universities.get(indexUniversity).addStudent(new Student(nameStudent));
                     /* добавляем студента на факультет */
-                    universities.get(indexUniversity).getFaculty(indexFaculty).addStudent(new Student(nameStudent));
+                    universities.get(indexUniversity)
+                            .getFaculty(indexFaculty).addStudent(new Student(nameStudent));
                 }
             }
         } catch (IOException e) {
@@ -79,7 +79,6 @@ public final class Json implements Reader, Writer {
             for (Faculty faculty : faculties) {
                 List<Student> students = faculty.getStudents();
                 JSONArray studentsJson = new JSONArray();
-                HashMap<String, String> studentsMap = new HashMap<>();
                 for (Student student : students) {
                     JSONObject studentJson = new JSONObject();
                     studentJson.put("name", student.getName());

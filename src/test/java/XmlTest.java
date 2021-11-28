@@ -31,11 +31,13 @@ public class XmlTest {
 
     @Test
     public void countOfFaculties() {
-        assertEquals(universities.get(0).getFaculties().size(), 5);
+        assertEquals(universities.get(0)
+                .getFaculties().size(), 5);
     }
 
     @Test
     public void countOfStudents() {
-        assertEquals(universities.get(0).getStudents().size(), 5);
+        assertEquals(universities.get(0)
+                .getStudents().size(), 5);
     }
 }

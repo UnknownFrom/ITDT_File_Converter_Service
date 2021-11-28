@@ -112,7 +112,8 @@ public final class Xml implements Reader, Writer {
                         if (student.getNodeType() != Node.TEXT_NODE) {
                             NamedNodeMap studentAttributes = student.getAttributes();
                             String nameStud = studentAttributes.getNamedItem("name").getNodeValue();
-                            universities.get(i).getFaculty(countFaculties).addStudent(new Student(nameStud));
+                            universities.get(i)
+                                    .getFaculty(countFaculties).addStudent(new Student(nameStud));
                             universities.get(i).addStudent(new Student(nameStud));
                         }
                     }
