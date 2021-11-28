@@ -27,11 +27,11 @@ public final class Xml implements Reader, Writer {
     }
 
     @Override
-    public void write(List<University> universities, String path) throws ParserConfigurationException, TransformerException {
+    public void write(List<University> universities, String path) throws ParserConfigurationException {
         writeToXml(universities, path);
     }
 
-    void writeToXml(List<University> universities, String path) throws ParserConfigurationException, TransformerException {
+    void writeToXml(List<University> universities, String path) throws ParserConfigurationException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document document = dBuilder.newDocument();
@@ -75,11 +75,20 @@ public final class Xml implements Reader, Writer {
             }
         }
         /* запись в XML документ */
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        DOMSource source = new DOMSource(document);
-        StreamResult result = new StreamResult(new File(path));
-        transformer.transform(source, result);
+        createFile(document, path);
+    }
+
+    void createFile(Document document, String path) {
+        /* запись в XML документ */
+        try {
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(document);
+            StreamResult result = new StreamResult(new File(path));
+            transformer.transform(source, result);
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
     }
 
     void readFromXml(List<University> universities, String path) throws ParserConfigurationException, IOException, SAXException {
@@ -96,7 +105,7 @@ public final class Xml implements Reader, Writer {
             String universityName = universityAttributes.getNamedItem("name").getNodeValue();
             universities.add(new University(universityName));
 
-            int countFaculties = -1;    /* кол-во факультетов в университете */
+            int countFaculties = -1; /* кол-во факультетов в университете */
             NodeList facultiesElements = university.getChildNodes();
             for (int k = 0; k < facultiesElements.getLength(); k++) {
                 Node faculty = facultiesElements.item(k);
