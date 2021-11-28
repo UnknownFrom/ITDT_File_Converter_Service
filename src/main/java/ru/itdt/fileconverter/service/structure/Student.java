@@ -1,4 +1,4 @@
-package ru.pavel.service.structure;
+package ru.itdt.fileconverter.service.structure;
 
 public final class Student {
     private final String name;

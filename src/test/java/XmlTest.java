@@ -1,9 +1,9 @@
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
-import ru.pavel.service.Reader;
-import ru.pavel.service.structure.University;
-import ru.pavel.service.converters.Xml;
+import ru.itdt.fileconverter.service.Reader;
+import ru.itdt.fileconverter.service.structure.University;
+import ru.itdt.fileconverter.service.converters.Xml;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
@@ -21,7 +21,7 @@ public class XmlTest {
     public void setUp() throws ParserConfigurationException, IOException, ParseException, org.json.simple.parser.ParseException, SAXException {
         universities = new ArrayList<>();
         Reader xml = new Xml();
-        xml.read(universities, new File("src/main/java/ru/pavel/data/data.xml").getAbsolutePath());
+        xml.read(universities, new File("src/main/resources/data.xml").getAbsolutePath());
     }
 
     @Test

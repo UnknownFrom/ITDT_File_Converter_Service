@@ -1,6 +1,6 @@
 import org.junit.*;
-import ru.pavel.service.structure.Faculty;
-import ru.pavel.service.structure.Student;
+import ru.itdt.fileconverter.service.structure.Faculty;
+import ru.itdt.fileconverter.service.structure.Student;
 
 import static org.junit.Assert.assertEquals;
 

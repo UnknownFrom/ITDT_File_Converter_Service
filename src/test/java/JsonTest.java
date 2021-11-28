@@ -1,9 +1,9 @@
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
-import ru.pavel.service.Reader;
-import ru.pavel.service.converters.Json;
-import ru.pavel.service.structure.University;
+import ru.itdt.fileconverter.service.Reader;
+import ru.itdt.fileconverter.service.converters.Json;
+import ru.itdt.fileconverter.service.structure.University;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
@@ -21,7 +21,7 @@ public class JsonTest {
     public void setUp() throws ParserConfigurationException, IOException, ParseException, org.json.simple.parser.ParseException, SAXException {
         universities = new ArrayList<>();
         Reader json = new Json();
-        json.read(universities, new File("src/main/java/ru/pavel/data/data.json").getAbsolutePath());
+        json.read(universities, new File("src/main/resources/data.json").getAbsolutePath());
     }
 
     @Test

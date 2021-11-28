@@ -1,4 +1,4 @@
-package ru.pavel.service.structure;
+package ru.itdt.fileconverter.service.structure;
 
 import java.util.ArrayList;
 import java.util.List;

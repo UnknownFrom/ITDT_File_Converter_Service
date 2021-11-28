@@ -1,5 +1,5 @@
 import org.junit.*;
-import ru.pavel.service.structure.Student;
+import ru.itdt.fileconverter.service.structure.Student;
 
 import static org.junit.Assert.assertEquals;
 

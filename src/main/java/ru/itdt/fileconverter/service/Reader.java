@@ -1,7 +1,7 @@
-package ru.pavel.service;
+package ru.itdt.fileconverter.service;
 
 import org.xml.sax.SAXException;
-import ru.pavel.service.structure.University;
+import ru.itdt.fileconverter.service.structure.University;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package ru.pavel.service;
+package ru.itdt.fileconverter.service;
 
 public final class Parser {
     private Writer writer;

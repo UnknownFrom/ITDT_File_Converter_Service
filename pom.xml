@@ -24,7 +24,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        ru.pavel.Main
+                                        ru.itdt.fileconverter.Main
                                     </mainClass>
                                 </manifest>
                             </archive>

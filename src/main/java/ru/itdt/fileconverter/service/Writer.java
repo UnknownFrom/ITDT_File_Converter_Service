@@ -1,6 +1,6 @@
-package ru.pavel.service;
+package ru.itdt.fileconverter.service;
 
-import ru.pavel.service.structure.University;
+import ru.itdt.fileconverter.service.structure.University;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
